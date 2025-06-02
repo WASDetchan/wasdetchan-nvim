@@ -1,4 +1,5 @@
-# 💤 LazyVim
+--
+Install on arch:  
 
-A starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
-Refer to the [documentation](https://lazyvim.github.io/installation) to get started.
+1. Clone this repository into .config/nvim
+2. sudo pacman -S ripgrep fd lazygit fzf unzip wget luarocks 
