@@ -4,13 +4,13 @@ local function buffer_position(bufnr)
   local pos = buffer_order[bufnr]
   if not pos then
     pos = -1
-    print("ohno")
+    print("ohno", bufnr)
   end
   return pos
 end
 
 local function assign_buffer(bufnr)
-  if not buffer_order[bufnr] then
+  if vim.bo[bufnr].buftype == '' and not buffer_order[bufnr] then
     buffer_order.maxn = buffer_order.maxn + 1
     buffer_order[bufnr] = buffer_order.maxn
   end
@@ -68,11 +68,12 @@ return {
       }
       require('bufferline').setup(opts)
 
-      vim.api.nvim_create_autocmd("BufAdd", {
+      vim.api.nvim_create_autocmd("BufWinEnter", {
         callback = function(args)
           assign_buffer(args.buf)
         end,
       })
+
       vim.api.nvim_create_autocmd("BufDelete", {
         callback = function(args)
           remove_buffer(args.buf)
