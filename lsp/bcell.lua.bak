@@ -1,0 +1,5 @@
+return {
+  cmd = { "/home/yaroslav/Projects/rust/bight/target/debug/bight_lsp" },
+  filetypes = { "bcell-lua" },
+  root_dir = vim.fn.getcwd()
+}
