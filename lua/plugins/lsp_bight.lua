@@ -1,0 +1,74 @@
+-- return {}
+-- local nvim_lsp = require("lspconfig")
+--
+-- -- Wrapper function for Lua files starting with "="
+-- local function lua_expression_handler(client, bufnr)
+--   -- Only handle Lua buffers
+--   if vim.bo[bufnr].filetype ~= "lua" then
+--     return
+--   end
+--
+--   -- Intercept LSP textDocument/didOpen and didChange notifications
+--   local original_notify = client.notify
+--   client.notify = function(method, params)
+--     if (method == "textDocument/didOpen" or method == "textDocument/didChange") and params.textDocument then
+--       local lines = params.textDocument.text
+--       if type(lines) == "string" then
+--         lines = vim.split(lines, "\n")
+--       end
+--       if #lines > 0 and lines[1]:sub(1, 1) == "=" then
+--         lines[1] = "return " .. lines[1]:sub(2)
+--       end
+--       params.textDocument.text = table.concat(lines, "\n")
+--     end
+--     return original_notify(method, params)
+--   end
+-- end
+--
+-- -- Configure Lua LSP
+-- nvim_lsp.lua_ls.setup({
+--   on_attach = lua_expression_handler,
+--   settings = {
+--     Lua = {
+--       runtime = { version = "LuaJIT" },
+--       diagnostics = { globals = { "vim" } },
+--       workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+--     },
+--   },
+-- })
+--
+-- ~/.config/nvim/lua/plugins/bight_lsp.lua
+--
+-- local lspconfig = require("lspconfig")
+-- local cmp_nvim_lsp = require("cmp_nvim_lsp")
+--
+-- -- Default capabilities for completion
+-- local capabilities = cmp_nvim_lsp.default_capabilities()
+--
+-- -- Setup your custom LSP proxy
+-- lspconfig.bightlsp = {
+--   default_config = {
+--     cmd = { "/home/yaroslav/Projects/rust/bight/target/debug/bight_lsp" },
+--     filetypes = { "bcell-lua" },
+--     root_dir = lspconfig.util.root_pattern(".git", "."),
+--   },
+-- }
+--
+-- -- Automatically attach to buffers with filetype bcell-lua
+-- lspconfig.bightlsp.setup({
+--   capabilities = capabilities,
+--   on_attach = function(client, bufnr)
+--     -- LazyVim style keymaps
+--     local bufmap = function(mode, lhs, rhs, opts)
+--       opts = opts or {}
+--       opts.buffer = bufnr
+--       vim.keymap.set(mode, lhs, rhs, opts)
+--     end
+--
+--     -- Example keymaps
+--     bufmap("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+--     bufmap("n", "K", vim.lsp.buf.hover, { desc = "Hover info" })
+--     bufmap("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
+--   end,
+-- })
+return {}

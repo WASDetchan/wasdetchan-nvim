@@ -10,7 +10,11 @@ vim.diagnostic.config({
   virtual_lines = true,
 })
 
-vim.g.lazyvim_rust_diagnostics = "rust-analyzer"
+-- LSP Server to use for Rust.
+-- Set to "bacon-ls" to use bacon-ls instead of rust-analyzer.
+-- only for diagnostics. The rest of LSP support will still be
+-- provided by rust-analyzer.
+vim.g.lazyvim_rust_diagnostics = "bacon-ls"
 
 vim.g.dbs = {
   myfirstdb = "postgres://yaroslav@localhost/myfirstdb",

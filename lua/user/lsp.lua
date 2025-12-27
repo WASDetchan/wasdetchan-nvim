@@ -1,0 +1,13 @@
+-- local lua_ls_override = require("user.lua_ls_override")
+--
+-- require("lspconfig").lua_ls.setup({
+--   on_attach = function(client, bufnr)
+--     -- Call the LazyVim default on_attach if needed
+--     if require("lazyvim.util").on_attach then
+--       require("lazyvim.util").on_attach(client, bufnr)
+--     end
+--
+--     -- Attach your custom buffer transform
+--     lua_ls_override.setup(client, bufnr)
+--   end,
+-- })

@@ -1,0 +1,45 @@
+-- -- lua/user/lua_ls_override.lua
+-- local M = {}
+--
+-- -- Transform first line: = → return
+-- function M.transform_first_char(bufnr)
+--   local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+--   if #lines == 0 then
+--     return lines
+--   end
+--
+--   local first_line = lines[1]
+--   if first_line:match("^=") then
+--     lines[1] = first_line:gsub("^=", "return ", 1)
+--   end
+--
+--   return lines
+-- end
+--
+-- -- Intercept LSP changes
+-- function M.intercept_did_change(client, bufnr)
+--   local transformed_lines = M.transform_first_char(bufnr)
+--   local transformed_text = table.concat(transformed_lines, "\n")
+--
+--   vim.notify("Transformed text:\n" .. transformed_text)
+--
+--   client.notify("textDocument/didChange", {
+--     textDocument = {
+--       uri = vim.uri_from_bufnr(bufnr),
+--       version = vim.api.nvim_buf_get_changedtick(bufnr),
+--     },
+--     contentChanges = { { text = transformed_text } },
+--   })
+-- end
+--
+-- -- Setup function for lua_ls
+-- function M.setup(client, bufnr)
+--   vim.api.nvim_buf_attach(bufnr, false, {
+--     on_lines = function()
+--       print("Intercepted buffer change!") -- <-- see if this prints
+--       M.intercept_did_change(client, bufnr)
+--     end,
+--   })
+-- end
+--
+-- return M

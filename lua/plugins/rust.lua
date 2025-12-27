@@ -110,6 +110,11 @@ return {
       end
     end,
   },
+  opts = {
+    adapters = {
+      ["rustaceanvim.neotest"] = {},
+    },
+  },
   {
     "neovim/nvim-lspconfig",
     opts = {
@@ -121,9 +126,22 @@ return {
       },
     },
   },
-  opts = {
-    adapters = {
-      ["rustaceanvim.neotest"] = {},
-    },
+  {
+    "mason-org/mason.nvim",
+    optional = true,
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, { "codelldb" })
+      if diagnostics == "bacon-ls" then
+        vim.list_extend(opts.ensure_installed, { "bacon" })
+      end
+    end,
   },
+  -- {
+  --   "stevearc/conform.nvim",
+  --   opts = {
+  --     formatters = { rustfmt = {} },
+  --     formatters_by_ft = { rust = { "rustfmt" } },
+  --   },
+  -- },
 }
