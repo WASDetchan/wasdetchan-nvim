@@ -64,10 +64,12 @@ vim.lsp.config['bcell'] = {
 
 vim.lsp.enable("bcell")
 
+-- execute lua
 vim.keymap.set("n", "<space><space>x", "<cmd>source %<CR>")
 vim.keymap.set("n", "<space>x", ":.lua<CR>")
 vim.keymap.set("v", "<space>x", ":lua<CR>")
 
+-- no arrow movement
 vim.keymap.set('n', '<Up>', '<Nop>')
 vim.keymap.set('n', '<Down>', '<Nop>')
 vim.keymap.set('n', '<Left>', '<Nop>')
@@ -78,9 +80,11 @@ vim.keymap.set('v', '<Down>', '<Nop>')
 vim.keymap.set('v', '<Left>', '<Nop>')
 vim.keymap.set('v', '<Right>', '<Nop>')
 
+-- quit with/without saving
 vim.keymap.set('n', '<leader>qq', ':conf q<CR>')
 vim.keymap.set('n', '<leader>qx', ':x<CR>')
 
+-- "a file" object
 vim.keymap.set('o', 'ag', function()
   local buf = vim.api.nvim_get_current_buf()
   local last_line = vim.api.nvim_buf_line_count(buf)

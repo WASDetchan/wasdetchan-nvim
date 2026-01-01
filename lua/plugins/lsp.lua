@@ -17,7 +17,7 @@ return {
     },
     config = function()
       vim.lsp.enable('lua_ls')
-      vim.lsp.enable('rust-analyzer')
+      -- vim.lsp.enable('rust-analyzer')
       vim.lsp.enable('clangd')
 
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -36,6 +36,55 @@ return {
         end
       })
     end
+  }, {
+  'mrcjkb/rustaceanvim',
+  version = '^6', -- Recommended
+  lazy = false,   -- This plugin is already lazy
+  default_settings = {
+    -- rust-analyzer language server configuration
+    ["rust-analyzer"] = {
+      cargo = {
+        allFeatures = true,
+        loadOutDirsFromCheck = true,
+        buildScripts = {
+          enable = true,
+        },
+      },
+      -- Add clippy lints for Rust if using rust-analyzer
+      checkOnSave = true,
+      -- Enable diagnostics if using rust-analyzer
+      diagnostics = {
+        enable = true,
+      },
+      procMacro = {
+        enable = true,
+      },
+      files = {
+        exclude = {
+          ".direnv",
+          ".git",
+          ".jj",
+          ".github",
+          ".gitlab",
+          "bin",
+          "node_modules",
+          "target",
+          "venv",
+          ".venv",
+        },
+        -- Avoid Roots Scanned hanging, see https://github.com/rust-lang/rust-analyzer/issues/12613#issuecomment-2096386344
+        watcher = "client",
+      },
+    },
   },
-  -- Nvim config LS support
+  config = function()
+    if vim.fn.executable("rust-analyzer") == 0 then
+      vim.notify(
+        "**rust-analyzer** not found in PATH, please install it.\nhttps://rust-analyzer.github.io/",
+        vim.log.levels.ERROR
+      )
+    end
+  end
+},
+
 }

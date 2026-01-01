@@ -23,13 +23,15 @@ return {
             case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
             -- the default case_mode is "smart_case"
           },
-          frecency = {},
+          frecency = {
+            matcher = "fuzzy",
+          },
         }
       }
       -- To get fzf loaded and working with telescope, you need to call
       -- load_extension, somewhere after setup function:
       require('telescope').load_extension('fzf')
-      require('telescope').load_extension 'frecency'
+      require('telescope').load_extension('frecency')
 
       local telescope_extensions = require('telescope').extensions
       local telescope_builtin = require("telescope.builtin")
@@ -45,7 +47,13 @@ return {
 
       vim.keymap.set("n", "<leader>r",
         function() telescope_builtin.lsp_references { jump_type = "never" } end)
-      vim.keymap.set("n", "<leader>d", telescope_builtin.diagnostics)
+      -- vim.keymap.set("n", "<leader>d", telescope_builtin.diagnostics)
+      vim.keymap.set("n", "<leader>gd",
+        function() telescope_builtin.lsp_definitions { jump_type = "never" } end)
+
+      vim.keymap.set("n", "gd",
+        function() telescope_builtin.lsp_definitions {} end)
+      vim.keymap.set("n", "<leader>gi", telescope_builtin.lsp_implementations)
       vim.keymap.set("n", "<leader>c", telescope_builtin.command_history)
       vim.keymap.set("n", "<leader>y",
         function() telescope_builtin.lsp_type_definitions { jump_type = "never" } end)
@@ -66,6 +74,7 @@ return {
           require("telescope.builtin").git_status()
         end
       end)
+
 
       vim.keymap.set("n", "<leader>bf", telescope_builtin.buffers)
 

@@ -9,8 +9,21 @@ local function buffer_position(bufnr)
   return pos
 end
 
+
+local function is_in_bufferline(bufnr)
+  if not vim.api.nvim_buf_is_valid(bufnr) then
+    return false
+  end
+  if not vim.api.nvim_buf_is_loaded(bufnr) then
+    return false
+  end
+  if vim.bo[bufnr].buftype ~= "" then
+    return false
+  end
+  return true
+end
 local function assign_buffer(bufnr)
-  if vim.bo[bufnr].buftype == '' and not buffer_order[bufnr] then
+  if is_in_bufferline(bufnr) and not buffer_order[bufnr] then
     buffer_order.maxn = buffer_order.maxn + 1
     buffer_order[bufnr] = buffer_order.maxn
   end
@@ -26,6 +39,27 @@ local function remove_buffer(bufnr)
     end
   end
   buffer_order.maxn = buffer_order.maxn - 1
+end
+
+local function delete_all_except(bufnr)
+  local pos = buffer_order[bufnr]
+  buffer_order[bufnr] = nil
+  if not pos then return end
+  local to_delete = {}
+
+  for k in pairs(buffer_order) do
+    if type(k) == "number" then
+      table.insert(to_delete, k)
+    end
+  end
+  for _, k in ipairs(to_delete) do
+    if type(k) == "number" then
+      buffer_order[k] = nil
+      vim.api.nvim_buf_delete(k, {})
+    end
+  end
+  buffer_order[bufnr] = 1
+  buffer_order.maxn = 1
 end
 
 local function move_left(bufnr)
@@ -92,6 +126,11 @@ return {
         move_right(bufnr)
         vim.cmd("redraw!")
       end)
+
+      -- buffer operations (+ fuzzy search in telescope config)
+      vim.keymap.set("n", "<leader>bd", function() vim.api.nvim_buf_delete(0, {}) end, { silent = true })
+      vim.keymap.set("n", "<leader>bo", function() delete_all_except(vim.api.nvim_get_current_buf()) end,
+        { silent = true })
     end
   }
 }
