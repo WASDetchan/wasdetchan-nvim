@@ -1,9 +1,14 @@
 return {
+  -- release
+  -- {
+  --   'WASDetchan/bight.nvim',
+  --   opts = {}
+  -- },
+  -- dev
   {
-    dir = "/home/yaroslav/Projects/rust/bight_nvim/target/",
+    dir = "/home/yaroslav/Projects/rust/bight_nvim",
     config = function()
-      local bight = require('bight');
-      bight.setup {}
+      require('bight').setup {}
     end
   }
 }

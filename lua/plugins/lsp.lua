@@ -44,6 +44,7 @@ return {
     -- rust-analyzer language server configuration
     ["rust-analyzer"] = {
       cargo = {
+        targetDir = true,                  -- use workspace target
         allFeatures = true,
         loadOutDirsFromCheck = true,
         buildScripts = {

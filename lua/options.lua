@@ -84,6 +84,10 @@ vim.keymap.set('v', '<Right>', '<Nop>')
 vim.keymap.set('n', '<leader>qq', ':conf q<CR>')
 vim.keymap.set('n', '<leader>qx', ':x<CR>')
 
+-- Single key quickfix
+-- vim.keymap.set('n', '{', '[q', { noremap = true })
+-- vim.keymap.set('n', '}', ']q', { noremap = true })
+
 -- "a file" object
 vim.keymap.set('o', 'ag', function()
   local buf = vim.api.nvim_get_current_buf()

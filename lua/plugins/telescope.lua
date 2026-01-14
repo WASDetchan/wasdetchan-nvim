@@ -36,18 +36,18 @@ return {
       local telescope_extensions = require('telescope').extensions
       local telescope_builtin = require("telescope.builtin")
 
-      vim.keymap.set("n", "<leader>f",
-        function()
-          telescope_extensions.frecency.frecency {
-            workspace = "CWD",
-            path_display = { "shorten" },
-          }
-        end
-      )
+      -- vim.keymap.set("n", "<leader>f",
+      --   function()
+      --     telescope_extensions.frecency.frecency {
+      --       workspace = "CWD",
+      --       path_display = { "shorten" },
+      --     }
+      --   end
+      -- )
 
       vim.keymap.set("n", "<leader>r",
         function() telescope_builtin.lsp_references { jump_type = "never" } end)
-      -- vim.keymap.set("n", "<leader>d", telescope_builtin.diagnostics)
+      vim.keymap.set("n", "<leader>d", telescope_builtin.diagnostics)
       vim.keymap.set("n", "<leader>gd",
         function() telescope_builtin.lsp_definitions { jump_type = "never" } end)
 
@@ -83,6 +83,7 @@ return {
       vim.keymap.set("n", "<leader>tr", telescope_builtin.registers)
       vim.keymap.set("n", "<leader>tc", telescope_builtin.colorscheme)
       vim.keymap.set("n", "<leader>tf", telescope_builtin.find_files)
+      vim.keymap.set("n", "<leader>f", telescope_builtin.find_files)
     end
   }
 }

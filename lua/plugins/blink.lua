@@ -26,7 +26,17 @@ return {
       -- C-k: Toggle signature help (if signature.enabled = true)
       --
       -- See :h blink-cmp-config-keymap for defining your own keymap
-      keymap = { preset = 'default' },
+      keymap = {
+        preset = 'default',
+        ['<C-y>'] = false,
+        ['<C-n>'] = false,
+        ['<C-p>'] = false,
+        ['<C-l>'] = { 'accept' },
+        ['<C-j>'] = { 'select_next' },
+        ['<C-k>'] = { 'select_prev' },
+        ['<C-h>'] = { 'show_documentation' },
+        ['<C-;>'] = { 'show_documentation' },
+      },
 
       appearance = {
         -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
@@ -55,6 +65,6 @@ return {
       -- See the fuzzy documentation for more information
       fuzzy = { implementation = "prefer_rust_with_warning" }
     },
-    opts_extend = { "sources.default" }
+    opts_extend = { "sources.default" },
   }
 }
