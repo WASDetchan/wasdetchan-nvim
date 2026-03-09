@@ -17,8 +17,11 @@ return {
     },
     config = function()
       vim.lsp.enable('lua_ls')
+      vim.lsp.enable('gopls')
       -- vim.lsp.enable('rust-analyzer')
       vim.lsp.enable('clangd')
+      vim.lsp.enable('kotlin-lsp')
+      vim.lsp.enable('tinymist')
 
       vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(args)
@@ -44,7 +47,7 @@ return {
     -- rust-analyzer language server configuration
     ["rust-analyzer"] = {
       cargo = {
-        targetDir = true,                  -- use workspace target
+        targetDir = true, -- use workspace target
         allFeatures = true,
         loadOutDirsFromCheck = true,
         buildScripts = {
@@ -53,6 +56,7 @@ return {
       },
       -- Add clippy lints for Rust if using rust-analyzer
       checkOnSave = true,
+      enable_clippy = false,
       -- Enable diagnostics if using rust-analyzer
       diagnostics = {
         enable = true,

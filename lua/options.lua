@@ -110,3 +110,8 @@ vim.keymap.set('v', 'ag', function()
 
   vim.cmd('normal! gv')
 end, { noremap = true, silent = true })
+
+
+vim.keymap.set('n', '<leader>F', function()
+  vim.lsp.buf.format()
+end)
