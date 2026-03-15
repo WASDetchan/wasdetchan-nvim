@@ -22,6 +22,7 @@ return {
       vim.lsp.enable('clangd')
       vim.lsp.enable('kotlin-lsp')
       vim.lsp.enable('tinymist')
+      vim.lsp.enable('templ')
 
       vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(args)
