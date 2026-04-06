@@ -23,6 +23,8 @@ return {
       vim.lsp.enable('kotlin-lsp')
       vim.lsp.enable('tinymist')
       vim.lsp.enable('templ')
+      vim.lsp.enable('tailwind')
+      -- vim.lsp.enable('sqls')
 
       vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(args)
